@@ -1,7 +1,24 @@
 # Test the script manually first
-sudo -u logstash python3 /etc/logstash/scripts/snowflake/snowflake_elastic.py \
+sudo -u logstash python3 /etc/logstash/scripts/snowflake/snowflake_elastic_updated.py \
   --user 'APP_ELASTIC_SVC_PRD_RSA' \
   --sf_keypair '/etc/logstash/keypair/sf_keypair.pem' \
   --account 'hedgeservhsc.us-east-1' \
   --warehouse 'DEMO_WH' \
   --sql_query 'sql_check_version'
+
+
+
+
+
+[root@MS01-11ELKDEV02 conf.d]# sudo -u logstash python3 /etc/logstash/scripts/snowflake/snowflake_elastic_updated.py \
+>   --user 'APP_ELASTIC_SVC_PRD_RSA' \
+>   --sf_keypair '/etc/logstash/keypair/sf_keypair.pem' \
+>   --account 'hedgeservhsc.us-east-1' \
+>   --warehouse 'DEMO_WH' \
+>   --sql_query 'sql_check_version'
+{"@timestamp": "2025-09-18T06:24:19.029423Z", "file": {"name": "snowflake_elastic_updated.py", "path": "/etc/logstash/scripts/snowflake/snowflake_elastic_updated.py"}, "service": {"type": "Snowflake", "name": "snowflake-logs"}, "log": {"level": "INFO"}, "process": {"thread": {"name": "MainThread"}, "process": {"name": "MainProcess"}}, "labels": {"function_name": "main", "line_number": 257}, "message": "Starting Snowflake data fetch operation"}
+{"@timestamp": "2025-09-18T06:24:19.033995Z", "file": {"name": "snowflake_elastic_updated.py", "path": "/etc/logstash/scripts/snowflake/snowflake_elastic_updated.py"}, "service": {"type": "Snowflake", "name": "snowflake-logs"}, "log": {"level": "INFO"}, "process": {"thread": {"name": "MainThread"}, "process": {"name": "MainProcess"}}, "labels": {"function_name": "load_private_key_from_file", "line_number": 62}, "message": "Successfully loaded private key from /etc/logstash/keypair/sf_keypair.pem"}
+{"@timestamp": "2025-09-18T06:24:19.034081Z", "file": {"name": "snowflake_elastic_updated.py", "path": "/etc/logstash/scripts/snowflake/snowflake_elastic_updated.py"}, "service": {"type": "Snowflake", "name": "snowflake-logs"}, "log": {"level": "INFO"}, "process": {"thread": {"name": "MainThread"}, "process": {"name": "MainProcess"}}, "labels": {"function_name": "fetch_snowflake_data", "line_number": 98}, "message": "Connecting to Snowflake account: hedgeservhsc.us-east-1"}
+{"@timestamp": "2025-09-18T06:24:19.036094Z", "file": {"name": "snowflake_elastic_updated.py", "path": "/etc/logstash/scripts/snowflake/snowflake_elastic_updated.py"}, "service": {"type": "Snowflake", "name": "snowflake-logs"}, "log": {"level": "ERROR"}, "process": {"thread": {"name": "MainThread"}, "process": {"name": "MainProcess"}}, "labels": {"function_name": "fetch_snowflake_data", "line_number": 126}, "message": "Snowflake database error: 251008: Failed to load private key: a bytes-like object is required, not '_RSAPrivateKey'\nPlease provide a valid unencrypted rsa private key in DER format as bytes object"}
+{"error": "database_error", "message": "251008: Failed to load private key: a bytes-like object is required, not '_RSAPrivateKey'\nPlease provide a valid unencrypted rsa private key in DER format as bytes object", "timestamp": "2025-09-18T06:24:19.036162"}
+{"@timestamp": "2025-09-18T06:24:19.036211Z", "file": {"name": "snowflake_elastic_updated.py", "path": "/etc/logstash/scripts/snowflake/snowflake_elastic_updated.py"}, "service": {"type": "Snowflake", "name": "snowflake-logs"}, "log": {"level": "ERROR"}, "process": {"thread": {"name": "MainThread"}, "process": {"name": "MainProcess"}}, "labels": {"function_name": "main", "line_number": 269}, "message": "Data fetch failed, check previous error messages"}
