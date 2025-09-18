@@ -1,0 +1,7 @@
+# Test the script manually first
+sudo -u logstash python3 /etc/logstash/scripts/snowflake/snowflake_elastic.py \
+  --user 'APP_ELASTIC_SVC_PRD_RSA' \
+  --sf_keypair '/etc/logstash/keypair/sf_keypair.pem' \
+  --account 'hedgeservhsc.us-east-1' \
+  --warehouse 'DEMO_WH' \
+  --sql_query 'sql_check_version'
