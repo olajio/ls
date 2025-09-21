@@ -21,7 +21,7 @@ This integration enables automated data collection from Snowflake data warehouse
                            └─────────┘              └─────────┘
 ```
 
-**Server**: MS01-11ELK01  
+**Server**: SERVERNAME  
 **Location**: `/etc/logstash/scripts/snowflake/`
 
 ## Components
@@ -101,7 +101,7 @@ password => "${ELASTIC_PASSWORD}"
 
 | Parameter | Value | Description |
 |-----------|-------|-------------|
-| **Account** | `hedgeservhsc.us-east-1` | Snowflake account identifier |
+| **Account** | `account_name_us-east-1` | Snowflake account identifier |
 | **User** | `APP_ELASTIC_SVC_PRD_RSA` | Service account for data access |
 | **Warehouse** | `DEMO_WH` | Compute warehouse for query execution |
 | **Database** | `SNOWFLAKE` | Target database (system database) |
@@ -139,7 +139,7 @@ The script supports multiple predefined queries:
 ```ruby
 input {
   exec {
-    command => "python3 -W ignore /etc/logstash/scripts/snowflake/snowflake_elastic_updated.py --user 'APP_ELASTIC_SVC_PRD_RSA' --sf_keypair '${SF_KEYPAIR_PATH}' --account 'hedgeservhsc.us-east-1' --warehouse 'DEMO_WH' --sql_query 'sql_warehouse_load_history'"
+    command => "python3 -W ignore /etc/logstash/scripts/snowflake/snowflake_elastic_updated.py --user 'APP_ELASTIC_SVC_PRD_RSA' --sf_keypair '${SF_KEYPAIR_PATH}' --account 'account_name_us-east-1' --warehouse 'DEMO_WH' --sql_query 'sql_warehouse_load_history'"
     interval => 1200
     codec => "json_lines"
   }
@@ -288,14 +288,14 @@ sudo -u logstash /usr/share/logstash/bin/logstash-keystore list
 sudo -u logstash python3 /etc/logstash/scripts/snowflake/snowflake_elastic_updated.py \
   --user 'APP_ELASTIC_SVC_PRD_RSA' \
   --sf_keypair '/etc/logstash/keypair/sf_keypair.pem' \
-  --account 'hedgeservhsc.us-east-1' \
+  --account 'account_name_us-east-1' \
   --warehouse 'DEMO_WH' \
   --sql_query 'sql_check_version'
 ```
 
 **Expected Output**:
 ```json
-{"VERSION": "9.28.1", "warehouse": "DEMO_WH", "account": "hedgeservhsc.us-east-1", "execution_timestamp": "2025-09-18 06:34:08"}
+{"VERSION": "9.28.1", "warehouse": "DEMO_WH", "account": "account_name_us-east-1", "execution_timestamp": "2025-09-18 06:34:08"}
 ```
 
 ### 2. Test Logstash Configuration
@@ -359,7 +359,7 @@ curl -X GET "https://your-elastic-cluster:9243/_cat/indices/snowflake-*?v" \
   "AVG_RUNNING": 0.5,
   "AVG_QUEUED_LOAD": 0.2,
   "warehouse": "DEMO_WH",
-  "account": "hedgeservhsc.us-east-1",
+  "account": "account_name_us-east-1",
   "execution_timestamp": "2025-09-18 06:34:08"
 }
 ```
@@ -398,6 +398,4 @@ For issues or questions regarding this integration:
 
 ---
 
-**Last Updated**: September 2025  
-**Version**: 1.0  
-**Environment**: Production (MS01-11ELK01)
+**Environment**: Production (SERVERNAME)
